@@ -2,8 +2,10 @@
 name = "mini-telegram"
 version = "0.1.1"
 edition = "2021"
-license = "MIT"
+license = "Apache-2.0"
 readme = "README.md"
+keywords = ["telegram", "mtproto", "mtproto-server", "tokio-rs", "tokio"]
+documentation = "https://docs.rs/mini-telegram/0.1.1/mini_telegram/"
 repository = "https://github.com/YumcoderCom/mini-telegram"
 description = """
 mini-telegram is an unofficial, monolithic, idiomatic implementation of MTProto (telegram) server built with Rust that compatible with all telegram clients (web, android, iOS, desktop).
@@ -12,3 +14,8 @@ mini-telegram is an unofficial, monolithic, idiomatic implementation of MTProto 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["user-hooks"]

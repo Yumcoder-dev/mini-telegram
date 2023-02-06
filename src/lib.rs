@@ -2,8 +2,8 @@
 
 //! A minimal (i.e. very incomplete) implementation of a [MTProto](https://core.telegram.org/mtproto) (telegram) server.
 //!
-//! The purpose of this project is to provide a larger example of an
-//! asynchronous Rust project built with Tokio. Do not attempt to run this in
+//! The purpose of this project is to provide an
+//! asynchronous Rust MTProto project built with Tokio. Do not attempt to run this in
 //! production... seriously.
 //!
 //! The major components are:
