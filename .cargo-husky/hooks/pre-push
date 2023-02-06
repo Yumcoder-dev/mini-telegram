@@ -7,5 +7,5 @@
 
 set -e
 
-echo '+cargo set-version'
+echo 'cargo set-version'
 cargo set-version --bump patch
