@@ -1,16 +1,28 @@
 [package]
 name = "mini-telegram"
-version = "0.1.8"
+version = "0.1.13"
 edition = "2021"
 license = "Apache-2.0"
 readme = "README.md"
+authors = ["Yumcoder <https://t.me/yumcoder>"]
 keywords = ["telegram", "mtproto", "mtproto-server", "tokio-rs", "tokio"]
-documentation = "https://docs.rs/mini-telegram/0.1.1/mini_telegram/"
 repository = "https://github.com/YumcoderCom/mini-telegram"
 description = """
 mini-telegram is an unofficial, monolithic, idiomatic implementation of MTProto (telegram) server built with Rust that compatible with all telegram clients (web, android, iOS, desktop).
 """
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+async-stream = "0.3.0"
+atoi = "2.0.0"
+bytes = "1"
+structopt = "0.3.14"
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+tracing = "0.1.13"
+tracing-futures = { version = "0.2.3" }
+tracing-subscriber = "0.3.16"
+
+[dev-dependencies]
+# Enable test-utilities in dev mode only. This is mostly for tests.
+tokio = { version = "1", features = ["test-util"] }
