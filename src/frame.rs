@@ -9,7 +9,7 @@ use std::num::TryFromIntError;
 use std::string::FromUtf8Error;
 
 /// A frame in the MTProto protocol.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub enum Frame {
     Simple(String),
     Error(String),
@@ -195,6 +195,7 @@ impl Frame {
     }
 }
 
+// Frame == &String
 impl PartialEq<&str> for Frame {
     fn eq(&self, other: &&str) -> bool {
         match self {
