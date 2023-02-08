@@ -28,8 +28,8 @@
 #![feature(cursor_remaining)]
 #![feature(assert_matches)]
 
-// pub mod blocking_client;
-// pub mod client;
+pub mod blocking_client;
+pub mod client;
 
 pub mod cmd;
 pub use cmd::Command;
