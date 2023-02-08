@@ -1,4 +1,4 @@
-//! A minimal (i.e. very incomplete) implementation of a Redis server and
+//! A minimal (i.e. very incomplete) implementation of a MTProto server and
 //! client.
 //!
 //! The purpose of this project is to provide a larger example of an
@@ -8,20 +8,19 @@
 //! # Layout
 //!
 //! The library is structured such that it can be used with guides. There are
-//! modules that are public that probably would not be public in a "real" redis
+//! modules that are public that probably would not be public in a "real" MTProto
 //! client library.
 //!
 //! The major components are:
 //!
-//! * `server`: Redis server implementation. Includes a single `run` function
-//!   that takes a `TcpListener` and starts accepting redis client connections.
+//! * `server`: MTProto server implementation. Includes a single `run` function
+//!   that takes a `TcpListener` and starts accepting MTProto client connections.
 //!
-//! * `client`: an asynchronous Redis client implementation. Demonstrates how to
-//!   build clients with Tokio.
+//! * `client`: an asynchronous MTProto client implementation.
 //!
-//! * `cmd`: implementations of the supported Redis commands.
+//! * `cmd`: implementations of the supported MTProto commands(APIs).
 //!
-//! * `frame`: represents a single Redis protocol frame. A frame is used as an
+//! * `frame`: represents a single MTProto protocol frame. A frame is used as an
 //!   intermediate representation between a "command" and the byte
 //!   representation.
 
@@ -56,7 +55,7 @@ pub mod server;
 mod shutdown;
 use shutdown::Shutdown;
 
-/// Default port that a redis server listens on.
+/// Default port that a MTProto server listens on.
 ///
 /// Used if no port is specified.
 pub const DEFAULT_PORT: &str = "6379";
@@ -74,7 +73,7 @@ pub const DEFAULT_PORT: &str = "6379";
 /// it to be converted to `Box<dyn std::error::Error>`.
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 
-/// A specialized `Result` type for mini-redis operations.
+/// A specialized `Result` type for mini-telegram operations.
 ///
 /// This is defined as a convenience.
 pub type Result<T> = std::result::Result<T, Error>;

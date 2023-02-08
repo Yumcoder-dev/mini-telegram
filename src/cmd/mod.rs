@@ -15,7 +15,7 @@ pub use unknown::Unknown;
 
 use crate::{Connection, Db, Frame, Parse, ParseError, Shutdown};
 
-/// Enumeration of supported Redis commands.
+/// Enumeration of supported MTProto commands.
 ///
 /// Methods called on `Command` are delegated to the command implementation.
 #[derive(Debug)]
@@ -31,7 +31,7 @@ pub enum Command {
 impl Command {
     /// Parse a command from a received frame.
     ///
-    /// The `Frame` must represent a Redis command supported by `mini-redis` and
+    /// The `Frame` must represent a command supported by `mini-telegram` and
     /// be the array variant.
     ///
     /// # Returns
@@ -45,7 +45,7 @@ impl Command {
         // result in an error being returned.
         let mut parse = Parse::new(frame)?;
 
-        // All redis commands begin with the command name as a string. The name
+        // All commands begin with the command name as a string. The name
         // is read and converted to lower cases in order to do case sensitive
         // matching.
         let command_name = parse.next_string()?.to_lowercase();

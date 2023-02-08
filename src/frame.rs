@@ -1,17 +1,5 @@
-//! Provides a type representing a Redis protocol frame as well as utilities for
+//! Provides a type representing a protocol frame as well as utilities for
 //! parsing frames from a byte array.
-
-// see https://redis.io/topics/protocol
-// - For Simple Strings the first byte of the reply is "+"
-// - For Errors the first byte of the reply is "-"
-// - For Integers the first byte of the reply is ":"
-// - For Bulk Strings the first byte of the reply is "$"
-// - For Arrays the first byte of the reply is "*"
-//
-// RESP (REdis Serialization Protocol)
-// The way RESP is used in Redis as a request-response protocol is the following:
-// - Clients send commands to a Redis server as a RESP Array of Bulk Strings.
-// - The server replies with one of the RESP types according to the command implementation.
 
 use bytes::{Buf, Bytes};
 use std::convert::TryInto;
@@ -20,7 +8,7 @@ use std::io::Cursor;
 use std::num::TryFromIntError;
 use std::string::FromUtf8Error;
 
-/// A frame in the Redis protocol.
+/// A frame in the MTProto protocol.
 #[derive(Clone, Debug, PartialEq)]
 pub enum Frame {
     Simple(String),
@@ -28,7 +16,7 @@ pub enum Frame {
     Integer(u64),
     Bulk(Bytes),
     Null,
-    // Clients send commands to the Redis server using RESP Array
+    // Clients send commands to the server using Array
     Array(Vec<Frame>),
 }
 

@@ -34,7 +34,7 @@ impl Connection {
     pub fn new(socket: TcpStream) -> Connection {
         Connection {
             stream: BufWriter::new(socket),
-            // Default to a 4KB read buffer. For the use case of mini redis,
+            // Default to a 4KB read buffer. For the use case of mini telegram,
             // this is fine. However, real applications will want to tune this
             // value to their specific use case. There is a high likelihood that
             // a larger read buffer will work better.
@@ -155,7 +155,7 @@ impl Connection {
     /// full, it is flushed to the underlying socket.
     pub async fn write_frame(&mut self, frame: &Frame) -> io::Result<()> {
         // Arrays are encoded by encoding each entry. All other frame types are
-        // considered literals. For now, mini-redis is not able to encode
+        // considered literals. For now, mini-telegram is not able to encode
         // recursive frame structures. See below for more details.
         match frame {
             Frame::Array(val) => {
@@ -210,7 +210,7 @@ impl Connection {
             }
             // Encoding an `Array` from within a value cannot be done using a
             // recursive strategy. In general, async fns do not support
-            // recursion. Mini-redis has not needed to encode nested arrays yet,
+            // recursion. Mini-telegram has not needed to encode nested arrays yet,
             // so for now it is skipped.
             Frame::Array(_val) => unreachable!(),
         }

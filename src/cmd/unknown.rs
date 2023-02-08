@@ -2,7 +2,7 @@ use crate::{Connection, Frame};
 
 use tracing::{debug, instrument};
 
-/// Represents an "unknown" command. This is not a real `Redis` command.
+/// Represents an "unknown" command. This is not a real MTProto command.
 #[derive(Debug)]
 pub struct Unknown {
     command_name: String,
@@ -24,7 +24,7 @@ impl Unknown {
 
     /// Responds to the client, indicating the command is not recognized.
     ///
-    /// This usually means the command is not yet implemented by `mini-redis`.
+    /// This usually means the command is not yet implemented by `mini-telegram`.
     #[instrument(skip(self, dst))]
     pub(crate) async fn apply(self, dst: &mut Connection) -> crate::Result<()> {
         let response = Frame::Error(format!("ERR unknown command '{}'", self.command_name));

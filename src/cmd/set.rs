@@ -104,7 +104,7 @@ impl Set {
                 let ms = parse.next_int()?;
                 expire = Some(Duration::from_millis(ms));
             }
-            // Currently, mini-redis does not support any of the other SET
+            // Currently, mini-telegram does not support any of the other SET
             // options. An error here results in the connection being
             // terminated. Other connections will continue to operate normally.
             Ok(_) => return Err("currently `SET` only supports the expiration option".into()),
@@ -147,7 +147,7 @@ impl Set {
         frame.push_bulk(Bytes::from(self.key.into_bytes()));
         frame.push_bulk(self.value);
         if let Some(ms) = self.expire {
-            // Expirations in Redis procotol can be specified in two ways
+            // Expirations in procotol can be specified in two ways
             // 1. SET key value EX seconds
             // 2. SET key value PX milliseconds
             // We the second option because it allows greater precision and

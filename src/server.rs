@@ -1,4 +1,4 @@
-//! Minimal Redis server implementation
+//! Minimal MTProto server implementation
 //!
 //! Provides an async `run` function that listens for inbound connections,
 //! spawning a task per connection.
@@ -75,7 +75,7 @@ struct Handler {
     /// will need to interact with `db` in order to complete the work.
     db: Db,
 
-    /// The TCP connection decorated with the redis protocol encoder / decoder
+    /// The TCP connection decorated with the MTProto protocol encoder / decoder
     /// implemented using a buffered `TcpStream`.
     ///
     /// When `Listener` receives an inbound connection, the `TcpStream` is
@@ -105,7 +105,7 @@ struct Handler {
     _shutdown_complete: mpsc::Sender<()>,
 }
 
-/// Maximum number of concurrent connections the redis server will accept.
+/// Maximum number of concurrent connections the mini-telegram server will accept.
 ///
 /// When this limit is reached, the server will stop accepting connections until
 /// an active connection terminates.
@@ -119,7 +119,7 @@ struct Handler {
 /// well).
 const MAX_CONNECTIONS: usize = 250;
 
-/// Run the mini-redis server.
+/// Run the mini-telegram server.
 ///
 /// Accepts connections from the supplied listener. For each inbound connection,
 /// a task is spawned to handle that connection. The server runs until the
@@ -253,7 +253,7 @@ impl Listener {
                 db: self.db_holder.db(),
 
                 // Initialize the connection state. This allocates read/write
-                // buffers to perform redis protocol frame parsing.
+                // buffers to perform MTProto protocol frame parsing.
                 connection: Connection::new(socket),
 
                 // The connection state needs a handle to the max connections
@@ -320,10 +320,6 @@ impl Handler {
     /// Request frames are read from the socket and processed. Responses are
     /// written back to the socket.
     ///
-    /// Currently, pipelining is not implemented. Pipelining is the ability to
-    /// process more than one request concurrently per connection without
-    /// interleaving frames. See for more details:
-    /// https://redis.io/topics/pipelining
     ///
     /// When the shutdown signal is received, the connection is processed until
     /// it reaches a safe state, at which point it is terminated.
@@ -351,8 +347,8 @@ impl Handler {
                 None => return Ok(()),
             };
 
-            // Convert the redis frame into a command struct. This returns an
-            // error if the frame is not a valid redis command or it is an
+            // Convert the frame into a command struct. This returns an
+            // error if the frame is not a valid command or it is an
             // unsupported command.
             let cmd = Command::from_frame(frame)?;
 

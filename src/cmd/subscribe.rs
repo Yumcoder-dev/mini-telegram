@@ -97,8 +97,6 @@ impl Subscribe {
     /// channels to subscribe to. Additional `subscribe` and `unsubscribe`
     /// commands may be received from the client and the list of subscriptions
     /// are updated accordingly.
-    ///
-    /// [here]: https://redis.io/topics/pubsub
     pub(crate) async fn apply(
         mut self,
         db: &Db,

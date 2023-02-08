@@ -77,8 +77,8 @@ struct State {
     /// `std::collections::HashMap` works fine.
     entries: HashMap<String, Entry>,
 
-    /// The pub/sub key-space. Redis uses a **separate** key space for key-value
-    /// and pub/sub. `mini-redis` handles this by using a separate `HashMap`.
+    /// The pub/sub key-space. telegram uses a **separate** key space for key-value
+    /// and pub/sub. `mini-telegram` handles this by using a separate `HashMap`.
     pub_sub: HashMap<String, broadcast::Sender<Bytes>>,
 
     /// Tracks key TTLs.
